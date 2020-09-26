@@ -1,0 +1,37 @@
+﻿@model List<DotNetCoreApplication.Entities.Employee>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee</h1>
+<br />
+<a href="/Employee/Add" class="btn btn-primary">Add</a>
+<br />
+<table id="tblEmployee" class="table">
+    <thead>
+        <tr>
+            <th class="col-lg-2">Employee Name</th>
+            <th class="col-lg-2">Employee Code</th>
+            <th class="col-lg-2">Contact No</th>
+            <th class="col-lg-2">Company Name</th>
+            <th class="col-lg-2">Created Date</th>
+            <th class="col-lg-2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td class="col-lg-2">@employee.EmployeeName</td>
+                <td class="col-lg-2">@employee.EmployeeCode</td>
+                <td class="col-lg-2">@employee.ContactNo</td>
+                <td class="col-lg-2">@employee.CompanyName</td>
+                <td class="col-lg-2">@employee.CreatedOn</td>
+                <td class="col-lg-2 text-center">
+                    <a href="/Employee/Edit?EmployeeId=@employee.EmployeeId" title="Edit">Edit  <i class="fa fa-edit"></i></a><a href="/Employee/Delete?&EmployeeId=@employee.EmployeeId" class="" onclick="return confirm(" Are you sure to delete this employee?");" title="Delete">Delete<i class="fa fa-times"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,56 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model DotNetCoreApplication.Models.EmployeeModel
+@{
+    ViewData["Title"] = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Employee</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            @using (Html.BeginForm(Model.EmployeeId == 0 ? "Add" : "Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="box-body">
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        @Html.HiddenFor(model => model.EmployeeId)
+                        <div class="col-xs-12" f>
+                            <label>Employee Name</label>
+                            @Html.TextBoxFor(model => model.EmployeeName, new { @class = "form-control", @placeholder = "Employee Name" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Employee Code</label>
+                            @Html.TextBoxFor(model => model.EmployeeCode, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Contact No</label>
+                            @Html.TextBoxFor(model => model.ContactNo, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Company Name</label>
+                            @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

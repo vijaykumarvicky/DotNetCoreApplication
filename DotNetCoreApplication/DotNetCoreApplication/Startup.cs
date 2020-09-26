@@ -2,9 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCoreApplication.Context;
+using DotNetCoreApplication.Interfaces;
+using DotNetCoreApplication.Services;
+using DotNetCoreApplication.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +29,16 @@ namespace DotNetCoreApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //Configure Connection String
+            services.AddDbContext<DataContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DBSqlConnection")));
+
+            //Employee service  
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
+            //Register dapper in scope  
+            services.AddScoped<IDapperHelper, DapperHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

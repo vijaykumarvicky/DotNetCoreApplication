@@ -1,0 +1,126 @@
+
+
+CREATE DATABASE DotNetByVickypedia;
+
+USE DotNetByVickypedia;
+
+CREATE TABLE Employee 
+(
+	EmployeeId int primary key identity(1,1),
+	EmployeeName varchar(50),
+	EmployeeCode varchar(50),
+	ContactNo varchar(50),
+	CompanyName varchar(50),
+	CreatedOn datetime
+)
+
+SELECT * FROM Employee;
+
+
+
+	
+===================================================================
+SP_Employee_Create
+===================================================================
+	
+	
+CREATE PROCEDURE [SP_Employee_Create]      
+@EmployeeName NVARCHAR(50) ,   
+@EmployeeCode NVARCHAR(50) ,   
+@ContactNo NVARCHAR(50) ,   
+@CompanyName NVARCHAR(50) ,      
+@CreatedOn DATETIME       
+AS      
+BEGIN      
+ DECLARE @EmployeeId as INT    
+        
+
+	INSERT INTO [Employee]
+			   ([EmployeeName]
+			   ,[EmployeeCode]
+			   ,[ContactNo]
+			   ,[CompanyName]
+			   ,[CreatedOn])
+		 VALUES
+			   (@EmployeeName
+			   ,@EmployeeCode
+			   ,@ContactNo
+			   ,@CompanyName
+			   ,@CreatedOn);
+
+		 
+        SET @EmployeeId = SCOPE_IDENTITY();     
+        SELECT  @EmployeeId AS EmployeeId;      
+END;      
+    
+	
+===================================================================
+SP_Employee_Update
+===================================================================
+	
+
+CREATE PROCEDURE [SP_Employee_Update]     
+	@EmployeeId INT, 
+    @EmployeeName NVARCHAR(50) ,   
+	@EmployeeCode NVARCHAR(50) ,   
+	@ContactNo NVARCHAR(50) ,   
+    @CompanyName NVARCHAR(50) 
+AS      
+BEGIN      
+
+		UPDATE [Employee]
+		   SET [EmployeeName] = @EmployeeName
+			  ,[EmployeeCode] = @EmployeeCode
+			  ,[ContactNo] = @ContactNo
+			  ,[CompanyName] = @CompanyName   
+		 WHERE EmployeeId=@EmployeeId
+
+END;      
+    
+
+
+===================================================================
+SP_Employee_GetAll
+===================================================================
+	
+	
+	
+CREATE PROCEDURE [SP_Employee_GetAll]      
+AS  
+BEGIN  
+      
+    SET NOCOUNT ON;  
+
+	SELECT [EmployeeId]
+		  ,[EmployeeName]
+		  ,[EmployeeCode]
+		  ,[ContactNo]
+		  ,[CompanyName]
+		  ,[CreatedOn]
+	  FROM [Employee];
+
+END  
+
+
+===================================================================
+SP_Employee_GetbyId
+===================================================================
+	
+
+CREATE PROCEDURE [SP_Employee_GetbyId]     
+ @EmployeeId INT
+AS  
+BEGIN  
+      
+    SET NOCOUNT ON;  
+
+	SELECT [EmployeeId]
+		  ,[EmployeeName]
+		  ,[EmployeeCode]
+		  ,[ContactNo]
+		  ,[CompanyName]
+		  ,[CreatedOn]
+	  FROM [Employee]
+	  WHERE EmployeeId=@EmployeeId;
+
+END 
